@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Search, Globe, BookOpen, Code, GraduationCap, Menu, X, ExternalLink, Copy, Check, ChevronDown, Zap, Lock, Eye, Target, Users, Award } from 'lucide-react';
+import { Shield, Search, Globe, BookOpen, Code, GraduationCap, Menu, X, ExternalLink, Copy, Check, ChevronDown, Zap, Lock, Eye, Target, Users, Award, Calendar, User, ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
@@ -48,6 +48,7 @@ const App = () => {
     { id: 'best-practices', title: 'Best Practices', icon: BookOpen },
     { id: 'case-studies', title: 'Case Studies', icon: Shield },
     { id: 'code-snippets', title: 'Code & Commands', icon: Code },
+    { id: 'blogs', title: 'Security Blogs', icon: BookOpen },
     { id: 'learning-resources', title: 'Learning Resources', icon: GraduationCap },
   ];
 
@@ -269,6 +270,89 @@ def test_cors(url, origin):
     }
   ];
 
+  const blogPosts = [
+    {
+      title: 'Advanced SQL Injection Techniques in 2024',
+      description: 'Explore modern SQL injection methods and bypass techniques for contemporary web applications.',
+      author: 'Alex Security',
+      date: '2024-01-15',
+      category: 'Web Security',
+      readTime: '8 min read',
+      mediumUrl: 'https://medium.com/@cybersecurity/advanced-sql-injection-techniques-2024',
+      tags: ['SQL Injection', 'Web Security', 'Penetration Testing']
+    },
+    {
+      title: 'XSS Prevention: A Complete Developer Guide',
+      description: 'Comprehensive guide on preventing Cross-Site Scripting attacks with practical examples and code samples.',
+      author: 'Sarah DevSec',
+      date: '2024-01-12',
+      category: 'Web Security',
+      readTime: '12 min read',
+      mediumUrl: 'https://medium.com/@websecurity/xss-prevention-complete-guide',
+      tags: ['XSS', 'Web Development', 'Security']
+    },
+    {
+      title: 'API Security Testing with OWASP Top 10',
+      description: 'Learn how to test API security using OWASP API Security Top 10 as your testing framework.',
+      author: 'Mike APITester',
+      date: '2024-01-10',
+      category: 'API Security',
+      readTime: '10 min read',
+      mediumUrl: 'https://medium.com/@apisecurity/owasp-api-security-testing',
+      tags: ['API Security', 'OWASP', 'Testing']
+    },
+    {
+      title: 'Bug Bounty Methodology: From Recon to Report',
+      description: 'Step-by-step methodology for successful bug bounty hunting with real-world examples.',
+      author: 'John BugHunter',
+      date: '2024-01-08',
+      category: 'Bug Bounty',
+      readTime: '15 min read',
+      mediumUrl: 'https://medium.com/@bugbounty/methodology-recon-to-report',
+      tags: ['Bug Bounty', 'Methodology', 'Reconnaissance']
+    },
+    {
+      title: 'Container Security: Docker and Kubernetes Best Practices',
+      description: 'Essential security practices for containerized applications and orchestration platforms.',
+      author: 'Emma CloudSec',
+      date: '2024-01-05',
+      category: 'Cloud Security',
+      readTime: '11 min read',
+      mediumUrl: 'https://medium.com/@cloudsecurity/container-security-best-practices',
+      tags: ['Container Security', 'Docker', 'Kubernetes']
+    },
+    {
+      title: 'Social Engineering in Cybersecurity: Attack Vectors and Defense',
+      description: 'Understanding social engineering tactics and how to build effective defenses against them.',
+      author: 'David SocEng',
+      date: '2024-01-03',
+      category: 'Social Engineering',
+      readTime: '9 min read',
+      mediumUrl: 'https://medium.com/@socialengineering/attack-vectors-defense',
+      tags: ['Social Engineering', 'Human Factor', 'Defense']
+    },
+    {
+      title: 'Zero-Day Vulnerability Research: Tools and Techniques',
+      description: 'Advanced techniques for discovering zero-day vulnerabilities in modern software systems.',
+      author: 'Lisa ZeroDay',
+      date: '2024-01-01',
+      category: 'Vulnerability Research',
+      readTime: '14 min read',
+      mediumUrl: 'https://medium.com/@vulnresearch/zero-day-research-techniques',
+      tags: ['Zero-Day', 'Vulnerability Research', 'Exploit Development']
+    },
+    {
+      title: 'Network Penetration Testing with Python',
+      description: 'Building custom penetration testing tools using Python for network security assessments.',
+      author: 'Chris NetPen',
+      date: '2023-12-28',
+      category: 'Network Security',
+      readTime: '13 min read',
+      mediumUrl: 'https://medium.com/@networksecurity/penetration-testing-python',
+      tags: ['Network Security', 'Python', 'Penetration Testing']
+    }
+  ];
+
   const learningResources = [
     {
       category: 'Courses',
@@ -380,7 +464,7 @@ def test_cors(url, origin):
             {/* Features Overview with Scroll Animation */}
             <ContainerScroll
               titleComponent={
-                <div className="text-center mb-16">
+                <div className="text-center mb-16 px-4">
                   <motion.h2 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -400,29 +484,31 @@ def test_cors(url, origin):
                 </div>
               }
             >
-              {features.map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#dbfc7f]/30 transition-all duration-300 group cursor-pointer"
-                    onClick={() => scrollToSection(feature.title.toLowerCase().replace(' ', '-'))}
-                  >
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#dbfc7f] transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-white/60 group-hover:text-white/80 transition-colors">
-                      {feature.description}
-                    </p>
-                  </motion.div>
-                );
-              })}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
+                {features.map((feature, index) => {
+                  const Icon = feature.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-[#dbfc7f]/30 transition-all duration-300 group cursor-pointer"
+                      onClick={() => scrollToSection(feature.title.toLowerCase().replace(' ', '-'))}
+                    >
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#dbfc7f] transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-white/60 group-hover:text-white/80 transition-colors">
+                        {feature.description}
+                      </p>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </ContainerScroll>
 
             {/* Stats Section */}
@@ -497,399 +583,507 @@ def test_cors(url, origin):
 
       case 'vulnerability-tools':
         return (
-          <div className="space-y-8" id="vulnerability-tools" data-animate>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
-                Vulnerability Detection Tools
-              </h2>
-              <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
-                Curated collection of tools for identifying web application vulnerabilities
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {vulnerabilityTools.map((tool, index) => (
-                <motion.div
-                  key={index}
+          <div className="min-h-screen py-20" id="vulnerability-tools" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
                 >
-                  <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33] group">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-white font-['Inter',Helvetica] group-hover:text-[#dbfc7f] transition-colors">
-                          {tool.name}
-                        </CardTitle>
-                        <Badge className="bg-[#dbfc7f] text-black border-none">
-                          {tool.category}
-                        </Badge>
-                      </div>
-                      <CardDescription className="text-white opacity-60">
-                        {tool.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-sm font-semibold text-[#dbfc7f] mb-2">Features:</h4>
-                          <ul className="space-y-1">
-                            {tool.features.map((feature, idx) => (
-                              <li key={idx} className="text-sm text-white opacity-80 flex items-center">
-                                <div className="w-1.5 h-1.5 bg-[#dbfc7f] rounded-full mr-2"></div>
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <Button 
-                          className="w-full bg-[#dbfc7f] text-black font-semibold hover:bg-[#fafc7f] border border-[#fafc7f] transform hover:scale-105 transition-all duration-300"
-                          onClick={() => window.open(tool.link, '_blank')}
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Visit Tool
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Vulnerability Detection Tools
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Curated collection of tools for identifying web application vulnerabilities
+                  </p>
                 </motion.div>
-              ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {vulnerabilityTools.map((tool, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33] group h-full">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <CardTitle className="text-white font-['Inter',Helvetica] group-hover:text-[#dbfc7f] transition-colors">
+                              {tool.name}
+                            </CardTitle>
+                            <Badge className="bg-[#dbfc7f] text-black border-none">
+                              {tool.category}
+                            </Badge>
+                          </div>
+                          <CardDescription className="text-white opacity-60">
+                            {tool.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="text-sm font-semibold text-[#dbfc7f] mb-2">Features:</h4>
+                              <ul className="space-y-1">
+                                {tool.features.map((feature, idx) => (
+                                  <li key={idx} className="text-sm text-white opacity-80 flex items-center">
+                                    <div className="w-1.5 h-1.5 bg-[#dbfc7f] rounded-full mr-2"></div>
+                                    {feature}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <Button 
+                              className="w-full bg-[#dbfc7f] text-black font-semibold hover:bg-[#fafc7f] border border-[#fafc7f] transform hover:scale-105 transition-all duration-300"
+                              onClick={() => window.open(tool.link, '_blank')}
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Visit Tool
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
 
       case 'browser-extensions':
         return (
-          <div className="space-y-8" id="browser-extensions" data-animate>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
-                Browser Extensions
-              </h2>
-              <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
-                Essential browser extensions for cybersecurity testing and analysis
-              </p>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {browserExtensions.map((extension, index) => (
-                <motion.div
-                  key={index}
+          <div className="min-h-screen py-20" id="browser-extensions" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
                 >
-                  <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33] group">
-                    <CardHeader>
-                      <CardTitle className="text-white font-['Inter',Helvetica] group-hover:text-[#dbfc7f] transition-colors">
-                        {extension.name}
-                      </CardTitle>
-                      <CardDescription className="text-white opacity-60">
-                        {extension.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-sm font-semibold text-[#dbfc7f] mb-2">Key Features:</h4>
-                          <ul className="space-y-1">
-                            {extension.features.map((feature, idx) => (
-                              <li key={idx} className="text-sm text-white opacity-80 flex items-center">
-                                <div className="w-1.5 h-1.5 bg-[#dbfc7f] rounded-full mr-2"></div>
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <Button 
-                          className="w-full bg-[#dbfc7f] text-black font-semibold hover:bg-[#fafc7f] border border-[#fafc7f] transform hover:scale-105 transition-all duration-300"
-                          onClick={() => window.open(extension.link, '_blank')}
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Get Extension
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Browser Extensions
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Essential browser extensions for cybersecurity testing and analysis
+                  </p>
                 </motion.div>
-              ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {browserExtensions.map((extension, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33] group h-full">
+                        <CardHeader>
+                          <CardTitle className="text-white font-['Inter',Helvetica] group-hover:text-[#dbfc7f] transition-colors">
+                            {extension.name}
+                          </CardTitle>
+                          <CardDescription className="text-white opacity-60">
+                            {extension.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="text-sm font-semibold text-[#dbfc7f] mb-2">Key Features:</h4>
+                              <ul className="space-y-1">
+                                {extension.features.map((feature, idx) => (
+                                  <li key={idx} className="text-sm text-white opacity-80 flex items-center">
+                                    <div className="w-1.5 h-1.5 bg-[#dbfc7f] rounded-full mr-2"></div>
+                                    {feature}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <Button 
+                              className="w-full bg-[#dbfc7f] text-black font-semibold hover:bg-[#fafc7f] border border-[#fafc7f] transform hover:scale-105 transition-all duration-300"
+                              onClick={() => window.open(extension.link, '_blank')}
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2" />
+                              Get Extension
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
 
       case 'best-practices':
         return (
-          <div className="space-y-8" id="best-practices" data-animate>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
-                Security Best Practices
-              </h2>
-              <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
-                Proven methodologies for effective penetration testing and security assessment
-              </p>
-            </motion.div>
-            <div className="space-y-6">
-              {bestPractices.map((practice, index) => (
-                <motion.div
-                  key={index}
+          <div className="min-h-screen py-20" id="best-practices" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
                 >
-                  <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
-                    <CardHeader>
-                      <CardTitle className="text-white font-['Inter',Helvetica]">{practice.title}</CardTitle>
-                      <CardDescription className="text-white opacity-60">
-                        {practice.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {practice.steps.map((step, idx) => (
-                          <motion.div 
-                            key={idx} 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.3, delay: idx * 0.05 }}
-                            className="flex items-center space-x-3 p-4 bg-[#1d1c21] rounded-lg border border-[#3e3d42] hover:border-[#dbfc7f]/30 transition-all duration-300 group"
-                          >
-                            <div className="flex-shrink-0 w-8 h-8 bg-[#dbfc7f] text-black rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform duration-300">
-                              {idx + 1}
-                            </div>
-                            <span className="text-white opacity-80 text-sm group-hover:opacity-100 transition-opacity">{step}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Security Best Practices
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Proven methodologies for effective penetration testing and security assessment
+                  </p>
                 </motion.div>
-              ))}
+                <div className="space-y-6">
+                  {bestPractices.map((practice, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
+                        <CardHeader>
+                          <CardTitle className="text-white font-['Inter',Helvetica]">{practice.title}</CardTitle>
+                          <CardDescription className="text-white opacity-60">
+                            {practice.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {practice.steps.map((step, idx) => (
+                              <motion.div 
+                                key={idx} 
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3, delay: idx * 0.05 }}
+                                className="flex items-center space-x-3 p-4 bg-[#1d1c21] rounded-lg border border-[#3e3d42] hover:border-[#dbfc7f]/30 transition-all duration-300 group"
+                              >
+                                <div className="flex-shrink-0 w-8 h-8 bg-[#dbfc7f] text-black rounded-full flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform duration-300">
+                                  {idx + 1}
+                                </div>
+                                <span className="text-white opacity-80 text-sm group-hover:opacity-100 transition-opacity">{step}</span>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
 
       case 'case-studies':
         return (
-          <div className="space-y-8" id="case-studies" data-animate>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
-                Vulnerability Case Studies
-              </h2>
-              <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
-                Real-world vulnerability examples with exploitation steps and mitigation strategies
-              </p>
-            </motion.div>
-            <div className="space-y-6">
-              {caseStudies.map((study, index) => (
-                <motion.div
-                  key={index}
+          <div className="min-h-screen py-20" id="case-studies" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
                 >
-                  <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <CardTitle className="text-white font-['Inter',Helvetica]">{study.title}</CardTitle>
-                        <Badge 
-                          className={`${
-                            study.severity === 'Critical' ? 'bg-red-500 text-white' :
-                            study.severity === 'High' ? 'bg-orange-500 text-white' :
-                            'bg-yellow-500 text-black'
-                          } border-none`}
-                        >
-                          {study.severity}
-                        </Badge>
-                      </div>
-                      <CardDescription className="text-white opacity-60">
-                        {study.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="text-lg font-semibold text-[#dbfc7f] mb-3">Exploitation Steps</h4>
-                          <ol className="space-y-2">
-                            {study.steps.map((step, idx) => (
-                              <motion.li 
-                                key={idx} 
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: idx * 0.1 }}
-                                className="flex items-start space-x-3"
-                              >
-                                <div className="flex-shrink-0 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
-                                  {idx + 1}
-                                </div>
-                                <span className="text-white opacity-80 text-sm">{step}</span>
-                              </motion.li>
-                            ))}
-                          </ol>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-[#a5ebc7] mb-3">Mitigation Strategies</h4>
-                          <ul className="space-y-2">
-                            {study.mitigation.map((item, idx) => (
-                              <motion.li 
-                                key={idx} 
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: idx * 0.1 }}
-                                className="flex items-start space-x-3"
-                              >
-                                <div className="w-1.5 h-1.5 bg-[#a5ebc7] rounded-full mr-2 mt-2"></div>
-                                <span className="text-white opacity-80 text-sm">{item}</span>
-                              </motion.li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Vulnerability Case Studies
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Real-world vulnerability examples with exploitation steps and mitigation strategies
+                  </p>
                 </motion.div>
-              ))}
+                <div className="space-y-6">
+                  {caseStudies.map((study, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <CardTitle className="text-white font-['Inter',Helvetica]">{study.title}</CardTitle>
+                            <Badge 
+                              className={`${
+                                study.severity === 'Critical' ? 'bg-red-500 text-white' :
+                                study.severity === 'High' ? 'bg-orange-500 text-white' :
+                                'bg-yellow-500 text-black'
+                              } border-none`}
+                            >
+                              {study.severity}
+                            </Badge>
+                          </div>
+                          <CardDescription className="text-white opacity-60">
+                            {study.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                              <h4 className="text-lg font-semibold text-[#dbfc7f] mb-3">Exploitation Steps</h4>
+                              <ol className="space-y-2">
+                                {study.steps.map((step, idx) => (
+                                  <motion.li 
+                                    key={idx} 
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.3, delay: idx * 0.1 }}
+                                    className="flex items-start space-x-3"
+                                  >
+                                    <div className="flex-shrink-0 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
+                                      {idx + 1}
+                                    </div>
+                                    <span className="text-white opacity-80 text-sm">{step}</span>
+                                  </motion.li>
+                                ))}
+                              </ol>
+                            </div>
+                            <div>
+                              <h4 className="text-lg font-semibold text-[#a5ebc7] mb-3">Mitigation Strategies</h4>
+                              <ul className="space-y-2">
+                                {study.mitigation.map((item, idx) => (
+                                  <motion.li 
+                                    key={idx} 
+                                    initial={{ opacity: 0, x: 20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.3, delay: idx * 0.1 }}
+                                    className="flex items-start space-x-3"
+                                  >
+                                    <div className="w-1.5 h-1.5 bg-[#a5ebc7] rounded-full mr-2 mt-2"></div>
+                                    <span className="text-white opacity-80 text-sm">{item}</span>
+                                  </motion.li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
 
       case 'code-snippets':
         return (
-          <div className="space-y-8" id="code-snippets" data-animate>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
-                Code Snippets & Commands
-              </h2>
-              <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
-                Practical command-line examples and code snippets for common security tasks
-              </p>
-            </motion.div>
-            <div className="space-y-6">
-              {codeSnippets.map((snippet, index) => (
-                <motion.div
-                  key={index}
+          <div className="min-h-screen py-20" id="code-snippets" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
                 >
-                  <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
-                    <CardHeader>
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="text-white font-['Inter',Helvetica]">{snippet.title}</CardTitle>
-                          <CardDescription className="text-white opacity-60 mt-2">
-                            {snippet.description}
-                          </CardDescription>
-                        </div>
-                        <Badge className="bg-[#dbfc7f] text-black border-none">
-                          {snippet.category}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="relative">
-                        <pre className="bg-[#1d1c21] p-4 rounded-lg overflow-x-auto text-sm text-white border border-[#3e3d42] hover:border-[#dbfc7f]/30 transition-colors duration-300">
-                          <code>{snippet.code}</code>
-                        </pre>
-                        <Button
-                          size="sm"
-                          className="absolute top-2 right-2 bg-[#dbfc7f] text-black hover:bg-[#fafc7f] transform hover:scale-105 transition-all duration-300"
-                          onClick={() => copyToClipboard(snippet.code, `snippet-${index}`)}
-                        >
-                          {copiedCode === `snippet-${index}` ? (
-                            <Check className="w-4 h-4" />
-                          ) : (
-                            <Copy className="w-4 h-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Code Snippets & Commands
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Practical command-line examples and code snippets for common security tasks
+                  </p>
                 </motion.div>
-              ))}
+                <div className="space-y-6">
+                  {codeSnippets.map((snippet, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <CardTitle className="text-white font-['Inter',Helvetica]">{snippet.title}</CardTitle>
+                              <CardDescription className="text-white opacity-60 mt-2">
+                                {snippet.description}
+                              </CardDescription>
+                            </div>
+                            <Badge className="bg-[#dbfc7f] text-black border-none">
+                              {snippet.category}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="relative">
+                            <pre className="bg-[#1d1c21] p-4 rounded-lg overflow-x-auto text-sm text-white border border-[#3e3d42] hover:border-[#dbfc7f]/30 transition-colors duration-300">
+                              <code>{snippet.code}</code>
+                            </pre>
+                            <Button
+                              size="sm"
+                              className="absolute top-2 right-2 bg-[#dbfc7f] text-black hover:bg-[#fafc7f] transform hover:scale-105 transition-all duration-300"
+                              onClick={() => copyToClipboard(snippet.code, `snippet-${index}`)}
+                            >
+                              {copiedCode === `snippet-${index}` ? (
+                                <Check className="w-4 h-4" />
+                              ) : (
+                                <Copy className="w-4 h-4" />
+                              )}
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'blogs':
+        return (
+          <div className="min-h-screen py-20" id="blogs" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
+                >
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Security Blogs & Articles
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Latest insights and deep-dive articles on cybersecurity topics
+                  </p>
+                </motion.div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {blogPosts.map((post, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33] group cursor-pointer h-full"
+                            onClick={() => window.open(post.mediumUrl, '_blank')}>
+                        <CardHeader>
+                          <div className="flex justify-between items-start mb-2">
+                            <Badge className="bg-[#dbfc7f] text-black border-none text-xs">
+                              {post.category}
+                            </Badge>
+                            <div className="text-xs text-white/40 flex items-center">
+                              <Calendar className="w-3 h-3 mr-1" />
+                              {new Date(post.date).toLocaleDateString()}
+                            </div>
+                          </div>
+                          <CardTitle className="text-white font-['Inter',Helvetica] group-hover:text-[#dbfc7f] transition-colors line-clamp-2">
+                            {post.title}
+                          </CardTitle>
+                          <CardDescription className="text-white opacity-60 line-clamp-3">
+                            {post.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            <div className="flex flex-wrap gap-1">
+                              {post.tags.map((tag, idx) => (
+                                <Badge key={idx} variant="outline" className="text-xs bg-[#3e3d42] text-white border-[#3e3d42]">
+                                  {tag}
+                                </Badge>
+                              ))}
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center text-sm text-white/60">
+                                <User className="w-4 h-4 mr-1" />
+                                {post.author}
+                              </div>
+                              <div className="text-sm text-white/60">
+                                {post.readTime}
+                              </div>
+                            </div>
+                            <Button 
+                              className="w-full bg-[#dbfc7f] text-black font-semibold hover:bg-[#fafc7f] border border-[#fafc7f] transform hover:scale-105 transition-all duration-300 group-hover:shadow-lg"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(post.mediumUrl, '_blank');
+                              }}
+                            >
+                              Read on Medium
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
 
       case 'learning-resources':
         return (
-          <div className="space-y-8" id="learning-resources" data-animate>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
-                Learning Resources
-              </h2>
-              <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
-                Curated resources for continuous learning in cybersecurity
-              </p>
-            </motion.div>
-            <div className="space-y-6">
-              {learningResources.map((category, index) => (
-                <motion.div
-                  key={index}
+          <div className="min-h-screen py-20" id="learning-resources" data-animate>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="space-y-8">
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6 }}
+                  className="text-center"
                 >
-                  <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
-                    <CardHeader>
-                      <CardTitle className="text-white font-['Inter',Helvetica]">{category.category}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {category.resources.map((resource, idx) => (
-                          <motion.div 
-                            key={idx} 
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.3, delay: idx * 0.05 }}
-                            className="flex items-center justify-between p-4 bg-[#1d1c21] rounded-lg border border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 group"
-                          >
-                            <div>
-                              <h4 className="text-white font-medium group-hover:text-[#dbfc7f] transition-colors">{resource.name}</h4>
-                              <Badge className="text-xs bg-[#3e3d42] text-white border-none mt-1">
-                                {resource.type}
-                              </Badge>
-                            </div>
-                            <Button
-                              size="sm"
-                              className="bg-[#dbfc7f] text-black hover:bg-[#fafc7f] transform hover:scale-105 transition-all duration-300"
-                              onClick={() => window.open(resource.link, '_blank')}
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                            </Button>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <h2 className="text-5xl font-bold bg-[linear-gradient(127deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_23%,rgba(255,255,255,1)_51%,rgba(255,255,255,0.4)_100%)] bg-clip-text text-transparent mb-4 font-['Geist',Helvetica]">
+                    Learning Resources
+                  </h2>
+                  <p className="text-xl text-white opacity-60 max-w-3xl mx-auto">
+                    Curated resources for continuous learning in cybersecurity
+                  </p>
                 </motion.div>
-              ))}
+                <div className="space-y-6">
+                  {learningResources.map((category, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <Card className="bg-[#252429] border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 hover:shadow-[0px_0px_20px_#dbfc7f33]">
+                        <CardHeader>
+                          <CardTitle className="text-white font-['Inter',Helvetica]">{category.category}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {category.resources.map((resource, idx) => (
+                              <motion.div 
+                                key={idx} 
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3, delay: idx * 0.05 }}
+                                className="flex items-center justify-between p-4 bg-[#1d1c21] rounded-lg border border-[#3e3d42] hover:border-[#dbfc7f] transition-all duration-300 group"
+                              >
+                                <div>
+                                  <h4 className="text-white font-medium group-hover:text-[#dbfc7f] transition-colors">{resource.name}</h4>
+                                  <Badge className="text-xs bg-[#3e3d42] text-white border-none mt-1">
+                                    {resource.type}
+                                  </Badge>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  className="bg-[#dbfc7f] text-black hover:bg-[#fafc7f] transform hover:scale-105 transition-all duration-300"
+                                  onClick={() => window.open(resource.link, '_blank')}
+                                >
+                                  <ExternalLink className="w-4 h-4" />
+                                </Button>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         );
